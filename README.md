@@ -29,6 +29,8 @@ This project consists of APIs for user authentication, profile updates, coin dat
   "password": "P@ssowrd12"
 }
 
+```
+
 ### Update api request
 **Method:** `PATCH`  
 **Endpoint:** http://localhost:8084/backend_assignment/user-profile/update
@@ -47,6 +49,7 @@ This project consists of APIs for user authentication, profile updates, coin dat
   "mobile": "9679165255",
   "password": "P@ssw0rd!"
 }
+```
 
 ### Login Request
 **Method:** `POST`  
@@ -64,6 +67,8 @@ This project consists of APIs for user authentication, profile updates, coin dat
   "username": "jhondoe120",
   "password": "P@ssowrd12"
 }
+
+```
 
 ### Coin view Request
 **Method:** `GET`  
@@ -151,18 +156,17 @@ Build and Start Containers
 
 bash
 
-docker-compose up -d --build
+```docker-compose up -d --build```
 
 or
 
 bash
 
-docker-compose up --build
+```docker-compose up --build```
 
 View Backend Logs
 
 bash
 
-docker logs -f springbootassign
+```docker logs -f springbootassign```
 
-Replace <springbootcontainer> with the actual container name for your Spring Boot application.
