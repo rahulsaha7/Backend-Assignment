@@ -29,19 +29,17 @@ This project consists of APIs for user authentication, profile updates, coin dat
   "password": "P@ssowrd12"
 }
 
-Update Api
+### Update api request
+**Method:** `PATCH`  
+**Endpoint:** http://localhost:8084/backend_assignment/user-profile/update
 
-Method: PATCH
-Endpoint: http://localhost:8084/backend_assignment/user-profile/update
-
-Headers:
+**Headers:**
 
     X_PO_AUTH_KEY: yourPredefinedAuthKey (disabled)
     X_PO_ORIGIN: yourPredefinedOrigin
 
-Request Body:
-
-json
+**Request Body:**
+```json
 
 {
   "firstName": "Rahul",
@@ -50,36 +48,33 @@ json
   "password": "P@ssw0rd!"
 }
 
-Login Request
+### Login Request
+**Method:** `POST`  
+**Endpoint:** http://localhost:8084/backend_assignment/auth/login
 
-Method: POST
-Endpoint: http://localhost:8084/backend_assignment/auth/login
-
-Headers:
+**Headers:**
 
     X_PO_AUTH_KEY: yourPredefinedAuthKey
     X_PO_ORIGIN: yourPredefinedOrigin
 
-Request Body:
-
-json
+**Request Body:**
+```json
 
 {
   "username": "jhondoe120",
   "password": "P@ssowrd12"
 }
 
-Coin View
+### Coin view Request
+**Method:** `GET`  
+**Endpoint:** http://localhost:8084/backend_assignment/coins-view/get-coins-data?symbol=test
 
-Method: GET
-Endpoint: http://localhost:8084/backend_assignment/coins-view/get-coins-data?symbol=test
-
-Headers:
+**Headers:**
 
     X_PO_AUTH_KEY: yourPredefinedAuthKey (disabled)
     X_PO_ORIGIN: yourPredefinedOrigin
 
-Query Parameter:
+**Query Parameter:**
 
     symbol: test
 
