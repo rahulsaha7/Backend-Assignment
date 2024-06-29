@@ -83,11 +83,11 @@ This project consists of APIs for user authentication, profile updates, coin dat
 
     symbol: test
 
-Database Schema
-Users Table
+**Database Schema**
 
-sql
-
+**Users Table**
+**sql**
+```
 CREATE TABLE users (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
@@ -102,11 +102,11 @@ CREATE TABLE users (
 
 CREATE INDEX idx_email_users ON users(email);
 CREATE INDEX idx_username_users ON users(username);
+```
 
-API Request Logs Table
-
-sql
-
+**API Request Logs Table**
+**sql**
+```
 CREATE TABLE api_request_logs (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id BIGINT NOT NULL,
@@ -118,11 +118,12 @@ CREATE TABLE api_request_logs (
     updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
+```
 
-Audit Log Table
+**Audit Log Table**
+**sql**
 
-sql
-
+```
 CREATE TABLE audit_log (
     id BIGINT NOT NULL AUTO_INCREMENT,
     request_uri VARCHAR(255) NOT NULL,
@@ -134,11 +135,12 @@ CREATE TABLE audit_log (
     client_ip_address VARCHAR(50),
     PRIMARY KEY (id)
 );
+```
 
-User Action Attempts Table
+**User Action Attempts Table**
+**sql**
 
-sql
-
+```
 CREATE TABLE user_action_attempts (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
@@ -148,8 +150,9 @@ CREATE TABLE user_action_attempts (
     updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (username) REFERENCES users(username)
 );
+```
 
-Docker Setup
+**Docker Setup**
 
 To build and run the Docker containers, execute the following commands:
 Build and Start Containers
