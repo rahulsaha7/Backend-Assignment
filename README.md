@@ -185,3 +185,5 @@ Run the following command to start the Docker containers:
 bash
 
 docker-compose up -d
+
+Backend Up
