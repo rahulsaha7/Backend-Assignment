@@ -1,9 +1,6 @@
 # Start with a base image that has Java 17 and other dependencies installed
 FROM amazoncorretto:17
 
-# # Install xargs (if not available by default)
-# RUN apt-get update && apt-get install -y xargs
-
 # Set the working directory inside the container
 WORKDIR /app
 
