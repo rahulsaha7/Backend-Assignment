@@ -62,11 +62,12 @@ public class AuthService implements IAuthService{
 
     private EUser validateLoginRequestAndGetUserData(LoginRequest loginRequest, String clientIp) {
 
-        validateUserActionAttempt(loginRequest, clientIp);
+        EUserActionAttempt userActionAttempt = validateUserActionAttempt(loginRequest, clientIp);
 
         Optional<EUser> oEUser = authRepository.findByUserName(loginRequest.getUsername());
-        if(oEUser.isEmpty()){
-
+        if (oEUser.isEmpty()) {
+            userActionAttemptRepsitory.updateAttempt(loginRequest.getUsername(),
+                userActionAttempt.getActionAttemptCount() + 1);
             throw new ApiException(ApiResponseCodes.LOGIN_FAILED_INVALID_CREDENTIALS.getTitle(),
                 ApiResponseCodes.LOGIN_FAILED_INVALID_CREDENTIALS.getMessage(),
                 ApiResponseCodes.LOGIN_FAILED_INVALID_CREDENTIALS);
@@ -75,7 +76,8 @@ public class AuthService implements IAuthService{
             loginRequest.getPassword(),
             oEUser.get().getPassword()
         )) {
-
+            userActionAttemptRepsitory.updateAttempt(loginRequest.getUsername(),
+                userActionAttempt.getActionAttemptCount() + 1);
             throw new ApiException(ApiResponseCodes.LOGIN_FAILED_INVALID_CREDENTIALS.getTitle(),
                 ApiResponseCodes.LOGIN_FAILED_INVALID_CREDENTIALS.getMessage(),
                 ApiResponseCodes.LOGIN_FAILED_INVALID_CREDENTIALS);
@@ -85,14 +87,20 @@ public class AuthService implements IAuthService{
 
     }
 
-    private void validateUserActionAttempt(LoginRequest loginRequest, String clientIp) {
-        EUserActionAttempt userActionAttempt = userActionAttemptRepsitory.findByUserNameOrIP(loginRequest.getUsername(),clientIp);
-        if(userActionAttempt.getActionAttemptCount() > ALLOWED_LOGIN_ATTEMPTS){
+    private EUserActionAttempt validateUserActionAttempt(LoginRequest loginRequest, String clientIp) {
+        EUserActionAttempt userActionAttempt = userActionAttemptRepsitory.findByUserNameOrIP(loginRequest.getUsername(),
+            clientIp);
+        if (userActionAttempt == null) {
+            throw new ApiException(ApiResponseCodes.UNAUTHORIZED_ACCESS.getTitle(),
+                ApiResponseCodes.UNAUTHORIZED_ACCESS.getMessage(),
+                ApiResponseCodes.UNAUTHORIZED_ACCESS);
+        }
+        if (userActionAttempt.getActionAttemptCount() > ALLOWED_LOGIN_ATTEMPTS) {
             throw new ApiException(ApiResponseCodes.ACCOUNT_BLOCKED.getTitle(),
                 ApiResponseCodes.ACCOUNT_BLOCKED.getMessage(),
                 ApiResponseCodes.ACCOUNT_BLOCKED);
         }
-        userActionAttemptRepsitory.updateAttempt(userActionAttempt.getUsername(), userActionAttempt.getActionAttemptCount() + 1);
+        return userActionAttempt;
     }
 
     private void validateSignUpRequest(SignUpRequest request) {

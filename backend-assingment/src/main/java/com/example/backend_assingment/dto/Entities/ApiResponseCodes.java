@@ -19,7 +19,7 @@ public enum ApiResponseCodes {
     SIGNUP_FAILED_INVALID_PARAMETER(2102, "Signup Failed", "Invalid input for field : ", ResponseCodeType.ERROR),
     UPDATE_SUCCESS(2200, "Update Successful", "User information updated successfully.", ResponseCodeType.SUCCESS),
     UPDATE_FAILED_NOT_FOUND(2201, "Update Failed", "User not found.", ResponseCodeType.ERROR),
-    LOGIN_FAILED_INVALID_PARAMS(2102, "Signup Failed", "Invalid input for field : ", ResponseCodeType.ERROR),
+    LOGIN_FAILED_INVALID_PARAMS(2108, "Signup Failed", "Invalid input for field : ", ResponseCodeType.ERROR),
     UPDATE_FAILED_VALIDATION_ERROR(2202, "Update Failed", "Validation error occurred during update.", ResponseCodeType.ERROR),
     UNAUTHORIZED_ACCESS(4010, "Unauthorized Access", "You are not authorized to access this resource. Reason : ", ResponseCodeType.ERROR),
     UPDATE_FAILED_INVALID_PARAMETER(2104, "Signup Failed", "Invalid input for field : ", ResponseCodeType.ERROR),
