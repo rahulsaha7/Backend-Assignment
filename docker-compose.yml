@@ -14,9 +14,4 @@ services:
       volumes:
         - './mysql:/var/lib/mysql' 
 
-    tomcat:
-      image: tomcat:latest
-      restart: always
-      container_name: tomcat
-      ports:
-        - "8084:8080"
+  
