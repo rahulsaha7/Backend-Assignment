@@ -83,7 +83,7 @@ This project consists of APIs for user authentication, profile updates, coin dat
 
     symbol: test
 
-**Database Schema**
+## Database Schema
 
 **Users Table**
 **sql**
@@ -152,7 +152,7 @@ CREATE TABLE user_action_attempts (
 );
 ```
 
-**Docker Setup**
+## Docker Setup
 
 To build and run the Docker containers, execute the following commands:
 Build and Start Containers
