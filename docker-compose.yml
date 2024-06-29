@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+    mysql:
+      image: mysql:latest
+      container_name: mysql
+      restart: always
+      environment:
+        - 'MYSQL_ROOT_PASSWORD=root1234'
+        - 'MYSQL_DATABASE=mysqlDb'
+        - 'MYSQL_USER=mysql'
+        - 'MYSQL_PASSWORD=1234'
+      ports:
+        - "3306:3306"
+      volumes:
+        - './mysql:/var/lib/mysql' 
+
+    tomcat:
+      image: tomcat:latest
+      restart: always
+      container_name: tomcat
+      ports:
+        - "8084:8080"
