@@ -11,6 +11,7 @@ COPY . /app
 RUN ./gradlew build
 
 # Define the command to run when the container starts
-CMD ["java", "-jar", "build/libs/backend-assingment.jar"]
+CMD ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8005", "-jar", "build/libs/backend-assingment.jar"]
+
 
 EXPOSE 8080

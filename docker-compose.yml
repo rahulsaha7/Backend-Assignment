@@ -28,6 +28,7 @@ services:
             container_name: springbootassign
             ports:
               - '8084:8080'
+              - '8005:8005  '
             depends_on:
                   - tomcatAssign
                   - mysql

@@ -38,17 +38,6 @@ public class AuthController {
 
     private IAuthService authService;
 
-    @GetMapping("/change-username")
-    public String setCookie(HttpServletResponse response) {
-        // create a cookie
-        Cookie cookie = new Cookie("username", "Jovan");
-
-        //add cookie to response
-        response.addCookie(cookie);
-
-        return "Username is changed!";
-    }
-
     @PostMapping("/sign-up")
     @Authenticate(module = AuthModule.GUEST_USER, permissions = {AuthPermissions.GUEST})
     private ResponseEntity<ApiResponse<String>> getData(HttpServletRequest request,

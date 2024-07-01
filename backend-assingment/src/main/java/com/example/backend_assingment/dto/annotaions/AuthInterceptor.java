@@ -11,7 +11,7 @@ import com.example.backend_assingment.utils.CookieUtils;
 import com.example.backend_assingment.utils.JsonUtils;
 import com.example.backend_assingment.utils.TokenUtils;
 import com.example.backend_assingment.utils.UtilConstants;
-import jakarta.servlet.http.Cookie;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -22,7 +22,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
@@ -46,7 +45,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             Authenticate authenticate = handlerMethod.getMethodAnnotation(Authenticate.class);
 
             if (authenticate != null) {
-                auditLog(request);
+                auditLog(request, response);
                 switch (authenticate.module()) {
                     case AUTH_USER:
                         return handleAuthUser(request, response, authenticate.permissions());
@@ -61,10 +60,17 @@ public class AuthInterceptor implements HandlerInterceptor {
         return true;
     }
 
-    private void auditLog(HttpServletRequest request) {
+    private void auditLog(HttpServletRequest request, HttpServletResponse response) {
         String requestUri = request.getRequestURI();
         String clientId = request.getHeader("Client-ID");
-        String username = extractTokenFromCookies(request) == null ? null : tokenUtils.getUsernameFromToken(extractTokenFromCookies(request));
+        String username;
+        try {
+            username = extractTokenFromCookies(request) == null ? null
+                : tokenUtils.getUsernameFromToken(extractTokenFromCookies(request));
+        }catch (ExpiredJwtException e) {
+            CookieUtils.deleteCookie(response, UtilConstants.X_PO_AUTH);
+            username = null;
+        }
 
         StringBuilder additionalInfoBuilder = new StringBuilder();
         Enumeration<String> headerNames = request.getHeaderNames();
