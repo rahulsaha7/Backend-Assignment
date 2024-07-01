@@ -82,7 +82,7 @@ public class AuthService implements IAuthService{
                 ApiResponseCodes.LOGIN_FAILED_INVALID_CREDENTIALS.getMessage(),
                 ApiResponseCodes.LOGIN_FAILED_INVALID_CREDENTIALS);
         }
-
+        userActionAttemptRepsitory.updateAttempt(loginRequest.getUsername(), 0);
         return oEUser.get();
 
     }
@@ -92,7 +92,7 @@ public class AuthService implements IAuthService{
             clientIp);
         if (userActionAttempt == null) {
             throw new ApiException(ApiResponseCodes.UNAUTHORIZED_ACCESS.getTitle(),
-                ApiResponseCodes.UNAUTHORIZED_ACCESS.getMessage(),
+                ApiResponseCodes.UNAUTHORIZED_ACCESS.getMessage() + "Invalid user",
                 ApiResponseCodes.UNAUTHORIZED_ACCESS);
         }
         if (userActionAttempt.getActionAttemptCount() > ALLOWED_LOGIN_ATTEMPTS) {
